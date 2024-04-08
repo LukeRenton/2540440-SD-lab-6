@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const carList = document.getElementById('carList');
     cars = [];
     loadCarsBtn.addEventListener('click', () => {
-        fetch('http://localhost:3001/cars')
+        fetch('/api/cars')
             .then(response => response.json())
             .then(data => {
                 cars = data;
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 function addCar(newCar) {
-    fetch('http://localhost:3001/cars', {
+    fetch('/api/cars', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -59,15 +59,17 @@ carForm.addEventListener('submit', event => {
 
 // Function to remove a car
 function removeCar(index) {
-    const carId = cars[index].id;
-    fetch(`http://localhost:3001/cars/${carId}`, {
-        method: 'DELETE'
-    })
+    const carId = index;
+    fetch(`/api/cars?index=${index}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }})
         .then(response => response.json())
         .then(data => {
             console.log('Success:', data);
             //reload cars
-            // const loadCarsBtn = document.getElementById('loadCarsBtn');
+            const loadCarsBtn = document.getElementById('loadCarsBtn');
             loadCarsBtn.click();
         })
         .catch(error => {
@@ -78,6 +80,7 @@ function removeCar(index) {
 carList.addEventListener('click', event => {
     if (event.target.classList.contains('btn-remove')) {
         const index = event.target.dataset.index;
+        console.log("We are in the remove button event listener");
         removeCar(index);
     }
 });
