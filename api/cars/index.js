@@ -1,7 +1,5 @@
-const baseURL = 'http://localhost:4280/api/cars'
-
 module.exports = async function (context, req) {
-    if (req.method === 'GET' && req.url === baseURL) {
+    if (req.method === 'GET') {
         // Handle GET request to fetch cars data
         const cars = require('../../cars.json');
         context.res.json(cars);
@@ -9,7 +7,7 @@ module.exports = async function (context, req) {
     // else if (req.method === 'DELETE') {
     //     console.log('DELETE BABY!');
     // }
-    else if (req.method === 'POST' && req.url === baseURL) {
+    else if (req.method === 'POST') {
         // Handle POST request to add a new car
         try {
             const newCar = req.body;
