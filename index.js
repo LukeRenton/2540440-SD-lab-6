@@ -1,12 +1,17 @@
 //create cars api using express
 const express = require('express');
 const app = express();
-
-
-
+const PORT = 3001;
 app.use(express.json());
 
 const cars = require('./cars.json');
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 
 //get all cars
 app.get('/cars', (req, res) => {
@@ -46,7 +51,7 @@ app.post('/cars', (req, res) => {
     res.json(newCar);
 });
 
-//start app at localhost:3001
-app.listen(3001, () => {
-    console.log('Server started at http://localhost:3001');
+app.listen(PORT, () => {
+    //log the server port it started on
+    console.log(`Server started at http://localhost:${PORT}`);
 });
