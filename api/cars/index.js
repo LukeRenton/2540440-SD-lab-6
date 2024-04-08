@@ -1,9 +1,8 @@
 module.exports = async function (context, req) {
     if (req.method === 'GET') {
         // Handle GET request to fetch cars data
-        // const cars = require('../../cars.json');
-        // context.res.json(cars);
-        return context.res.status(200).json({ message: 'GET request received' });
+        const cars = require('../../cars.json');
+        context.res.json(cars);
     } 
     else if (req.method === 'POST') {
         // Handle POST request to add a new car
